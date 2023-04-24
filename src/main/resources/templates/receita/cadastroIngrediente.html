@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<main role="main">
+
+			<section class="jumbotron text-center">
+				<img class="d-block mx-auto mb-4"	>
+				<div class="container">
+					<h1 class="jumbotron-heading">Cadastro de ingredientes da receita</h1>
+				</div>
+			</section>
+
+			
+			<div class="album py-2 bg-light">
+				<div class="container">
+
+					<div class="d-flex justify-content-center">
+						<div class="col-md-8">
+							<div ></div>
+							<form th:action="@{/receitas/cadastroIngrediente}"
+								method="POST" class="was-validated">
+
+								<div class="form-group row">
+									<label for="receita" class="col-sm-2 col-form-label">Ingrediente:
+									</label>
+									<div class="col-sm-10">
+										<select class="form-control" id="ingredienteList" name="ingrediente">
+										    <option value="0">Selecione o ingrediente...</option>
+										    <option th:each="ing : ${selectIngredientes}" th:value="${ing.id}" th:text="${ing.nome}"></option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label for="porcoes" class="col-sm-2 col-form-label">Medida:
+									</label>
+									<div class="col-sm-5">
+										<select class="form-control" id="unidadesMedidaList" name="unidadeMedida">
+										    <option value="0">Selecione a unidade de medida...</option>
+										    <option th:each="uniMed : ${selectUnidadesMedida}" th:value="${uniMed.id}" th:text="${uniMed.nome}" ></option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label for="quantidade" class="col-sm-2 col-form-label">Quantidade: </label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" id="quantidade" name="quantidade"
+											placeholder="de ingredientes" required />
+									</div>
+								</div>
+
+								<input type="hidden" name="receita" th:value="${param.receita}" />
+
+								<div class="form-group row">
+									<div class="col-sm-10">
+										<button type="submit" class="btn btn-primary"
+											data-toggle="tooltip" data-placement="right" title="Salvar">
+											<i class="fas fa-save"></i>
+										</button>
+									</div>
+
+								</div>
+					
+							</form>
+
+							<hr />
+
+							<h2>Lista de Ingredientes</h2>
+
+								<table id="table-ingredientes" class="table table-sm table-striped table-bordered nowrap" style="width:100%">
+								  <thead class="thead-dark">
+								    <tr>
+								      <th scope="col">#</th>
+								      <th scope="col">Ingredientes</th>
+								      <th scope="col">Editar</th>
+								      <th scope="col">Excluir</th>
+								    </tr>
+								  </thead>
+								</table>
+							
+							<section>
+							
+								<div>
+			                		<span th:text="${message}"></span><br/><br/>
+			                			<a class="btn btn-primary" type="button" href="/receitas/u/novo">Voltar para receitas</a>
+			            		</div>
+							</section>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</main>
+
+	</section>
+	<script th:src="@{/js/ingrediente.js?(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
+
+</body>
+</html>
